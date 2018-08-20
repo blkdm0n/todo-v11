@@ -7,4 +7,13 @@ REQUIREMENTS
 [X] views.displayTodos should use forEach();
 
 
+//CONTINUED LEARNING OPPORTUNITIES
+[] Let user press enter to update todos
+[] Add some styling to the page
+[] Customize user experience
+[] Add a database for storage => use local storage?
+[] Deploy this application on Heroku
+
+
+
 
