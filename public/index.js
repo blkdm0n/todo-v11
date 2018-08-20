@@ -13,37 +13,41 @@ var todoList = {
     }
   },
   changeTodo: function(oldTodo, newTodo) {
-    for (let i = 0; i < this.todos.length; i++) {
-      if (this.todos[i].todoText === oldTodo) {
-        this.todos[i].todoText = newTodo;
+    this.todos.forEach((todo) => {
+      if (todo.todoText === oldTodo) {
+        todo.todoText = newTodo;
       }
-    }
+    });
   },
   toggleCompleted: function(completedTodo) {
-    for (let i = 0; i < this.todos.length; i++) {
-      if (this.todos[i].todoText === completedTodo) {
-        this.todos[i].completed = !this.todos[i].completed;
+    this.todos.forEach((todo) => {
+      if (todo.todoText === completedTodo) {
+        todo.completed = !todo.completed;
       }
-    }
+    });
   },
   toggleAll: function() {
     var totalTodos = this.todos.length;
     var completedTodos = 0;
 
-    //Get number of completed todos.
-    for (let i = 0; i < totalTodos; i++) {
-      if (this.todos[i].completed === true) {
+    // Get completed todos using forEach
+    this.todos.forEach((todo) => {
+      if (todo.completed === true) {
         completedTodos++;
       }
-    }
+    });
+
+    // If completedTodos === totalTodos make everything false
     if (completedTodos === totalTodos) {
-      for (let i = 0; i < totalTodos; i++) {
-        this.todos[i].completed = false;
-      }
+      this.todos.forEach((todo) => {
+        todo.completed = false;
+      });
+
+    // Otherwise make everything true;
     } else {
-      for (let i = 0; i < totalTodos; i++) {
-        this.todos[i].completed = true;
-      }
+      this.todos.forEach((todo) => {
+        todo.completed = true;
+      })
     }
   },
   deleteTodo: function(position) {
