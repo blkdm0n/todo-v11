@@ -13,14 +13,14 @@ var todoList = {
     }
   },
   changeTodo: function(oldTodo, newTodo) {
-    this.todos.forEach((todo) => {
+    this.todos.forEach(todo => {
       if (todo.todoText === oldTodo) {
         todo.todoText = newTodo;
       }
     });
   },
   toggleCompleted: function(completedTodo) {
-    this.todos.forEach((todo) => {
+    this.todos.forEach(todo => {
       if (todo.todoText === completedTodo) {
         todo.completed = !todo.completed;
       }
@@ -31,7 +31,7 @@ var todoList = {
     var completedTodos = 0;
 
     // Get completed todos using forEach
-    this.todos.forEach((todo) => {
+    this.todos.forEach(todo => {
       if (todo.completed === true) {
         completedTodos++;
       }
@@ -39,15 +39,15 @@ var todoList = {
 
     // If completedTodos === totalTodos make everything false
     if (completedTodos === totalTodos) {
-      this.todos.forEach((todo) => {
+      this.todos.forEach(todo => {
         todo.completed = false;
       });
 
-    // Otherwise make everything true;
+      // Otherwise make everything true;
     } else {
-      this.todos.forEach((todo) => {
+      this.todos.forEach(todo => {
         todo.completed = true;
-      })
+      });
     }
   },
   deleteTodo: function(position) {
@@ -96,10 +96,12 @@ const views = {
     //  Clears list so we don't end up with duplicate lists
     todosUl.innerHTML = "";
 
-    for (var i = 0; i < todoList.todos.length; i++) {
+    //  Refactor from for loop to forEach
+    todoList.todos.forEach((todo, i) => {
       let todoLi = document.createElement(`li`);
-      let todoText = "";
-      if (todoList.todos[i].completed === false) {
+      let todoText = ``;
+
+      if (todo.completed === false) {
         todoText = `[ ] ${todoList.todos[i].todoText}`;
       } else {
         todoText = `[X] ${todoList.todos[i].todoText}`;
@@ -108,7 +110,7 @@ const views = {
       todoLi.textContent = todoText;
       todoLi.appendChild(this.createDeleteButton());
       todosUl.appendChild(todoLi);
-    }
+    });
   },
   createDeleteButton: function() {
     var deleteButton = document.createElement(`button`);
@@ -116,11 +118,11 @@ const views = {
     deleteButton.className = `delete-button`;
     return deleteButton;
   },
-  //event delegation add listener to parent element and listen for all elements
+  // Event delegation add listener to parent element => hears clicks on all elements
   eventListenerSetup: function() {
     var todosUl = document.querySelector(`ul`);
     todosUl.addEventListener(`click`, e => {
-    var clickedElement = e.target;
+      var clickedElement = e.target;
       if (clickedElement.className === `delete-button`) {
         handlers.deleteTodo(parseInt(clickedElement.parentNode.id));
       }
@@ -128,5 +130,5 @@ const views = {
   }
 };
 
-//allows our event listeners to run
+// Allows our event listeners to run
 views.eventListenerSetup();
